@@ -24,7 +24,7 @@ jobs:
       - name: Get JWT
         id: auth-token
         run: |
-          export TOKEN=$(curl -sSL "$ACTIONS_ID_TOKEN_REQUEST_URL")
+          echo "TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")" >> $GITHUB_ENV
           echo "JWT Token acquired."
 
       - name: Authenticate with API
