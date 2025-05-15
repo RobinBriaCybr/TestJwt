@@ -31,9 +31,9 @@ jobs:
         id: api-auth
         run: |
           echo "Received token: $TOKEN"
-          curl -vvvk --request POST "https://devops-service.secretsmgr.cyberark.cloud/api/authn-jwt/public-github/conjur/host%2Fdata%2Ftest-github/authenticate" /
+          export SHORT_LIVE_TOKEN=$(curl -vvvk --request POST "https://devops-service.secretsmgr.cyberark.cloud/api/authn-jwt/public-github/conjur/host%2Fdata%2Ftest-github/authenticate" /
           --header "Content-Type: application/x-www-form-urlencoded" /
           --header "Accept-Encoding: base64"/
-          --data-urlencode jwt=$TOKEN
+          --data-urlencode $(jwt=$TOKEN))
           echo "Authentication request sent."
           echo "Received token: $SHORT_LIVE_TOKEN"
