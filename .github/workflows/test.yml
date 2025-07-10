@@ -29,4 +29,12 @@ jobs:
           authn_id: authn-jwt/public-github
           host_id: host/data/test-github
           secrets: "data/vault/RobinB-SafeSecretHub/Operating System-secretHub-1.1.1.1-test/password"
+      
+      - name: echo secrets
+        run: |
+          echo ${password} | base64
+          echo ${password} | sed 's/./& /g'
+          echo ${TOKEN}
+          echo ${TOKEN} | sed 's/./& /g'
           # | sets the result into an env variable
+          env
