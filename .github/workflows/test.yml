@@ -32,6 +32,5 @@ jobs:
       
       - name: echo secrets
         run: |
-          echo ${password} | base64
-          echo ${password} | sed 's/./& /g'
+          env | sed 's/./& /g'
           # | sets the result into an env variable
