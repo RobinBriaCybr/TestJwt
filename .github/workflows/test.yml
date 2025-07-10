@@ -24,7 +24,7 @@ jobs:
       - name: Import Secrets using CyberArk Conjur Secret Fetcher
         uses: cyberark/conjur-action@v2.0.6
         with:
-          url: https://devops-service.secretsmgr.cyberark.cloud
+          url: https://devops-service.secretsmgr.cyberark.cloud/api
           account: conjur
           authn_id: authn-jwt/public-github-app-property-on
           secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password|password2
