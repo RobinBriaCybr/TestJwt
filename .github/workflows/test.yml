@@ -26,7 +26,8 @@ jobs:
         with:
           url: https://devops-service.secretsmgr.cyberark.cloud/api
           account: conjur
-          authn_id: public-github-app-property-on
+          authn_id: public-github
+          host_id: host/data/test-github
           secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password|password2
       
       - name: echo secrets
