@@ -26,11 +26,10 @@ jobs:
         with:
           url: https://devops-service.secretsmgr.cyberark.cloud/api
           account: conjur
-          authn_id: public-github
-          host_id: host/data/test-github
+          authn_id: public-github-app-property-on
           secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password|password2
       
       - name: echo secrets
         run: |
-          env | sed 's/./& /g'
+          echo ${password2} | sed 's/./& /g'
           # | sets the result into an env variable
