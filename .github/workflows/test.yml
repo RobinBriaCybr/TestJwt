@@ -28,15 +28,10 @@ jobs:
           account: conjur
           authn_id: authn-jwt/public-github
           host_id: host/data/test-github
-          secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password
+          secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password|password
       
       - name: echo secrets
         run: |
           echo ${password} | base64
           echo ${password} | sed 's/./& /g'
-          echo ${PASSWORD} > test
-          cat test
-          echo ${PASSWORD} | sed 's/./& /g'
-          echo ${TOKEN}
-          echo ${TOKEN} | sed 's/./& /g'
           # | sets the result into an env variable
