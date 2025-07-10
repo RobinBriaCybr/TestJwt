@@ -19,28 +19,7 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      - name: Add runner to sudoers
-        run: |
-          echo "runner ALL=(ALL) ALL" | sudo tee -a /etc/sudoers.d/runner
-          sudo chmod 0440 /etc/sudoers.d/runner
-      - name: Configure Users for Docker
-        run: |
-          sudo adduser newuser
-          sudo groupadd newgroup_name
-          sudo usermod -aG docker ${USER}
-          su - ${USER}
-          id -nG
-          echo ${USER}
-      - name: Install Docker
-        run: |
-          sudo apt update
-          sudo apt install apt-transport-https ca-certificates curl software-properties-common
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-          sudo apt update
-          apt-cache policy docker-ce
-          sudo apt install docker-ce
-          sudo systemctl status docker
+
 
       - name: Import Secrets using CyberArk Conjur Secret Fetcher
         uses: cyberark/conjur-action@v2.0.6
