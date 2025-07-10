@@ -1,0 +1,48 @@
+run-name: Test CyberArk Integration
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Name of the branch to create'
+        required: true
+ 
+jobs:
+  cyberark-integration:
+    permissions:
+      id-token: 'write'
+      contents: 'read'
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Add runner to sudoers
+        run: |
+          echo "runner ALL=(ALL) ALL" | sudo tee -a /etc/sudoers.d/runner
+          sudo chmod 0440 /etc/sudoers.d/runner
+      - name: Configure Users for Docker
+        run: |
+          sudo adduser newuser
+          sudo groupadd newgroup_name
+          sudo usermod -aG docker ${USER}
+          su - ${USER}
+          id -nG
+          echo ${USER}
+      - name: Install Docker
+        run: |
+          sudo apt update
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+          sudo apt update
+          apt-cache policy docker-ce
+          sudo apt install docker-ce
+          sudo systemctl status docker
+
+      - name: Import Secrets using CyberArk Conjur Secret Fetcher
+        uses: cyberark/conjur-action@v2.0.6
+        with:
+          url: https://devops-service.secretsmgr.cyberark.cloud
+          account: conjur
+          authn_id: authn-jwt/public-github
+          host_id: host/data/test-github
+          secrets: "data/vault/RobinB-SafeSecretHub/Operating System-secretHub-1.1.1.1-test/password"
+          # | sets the result into an env variable
