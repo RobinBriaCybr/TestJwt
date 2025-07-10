@@ -28,7 +28,7 @@ jobs:
           account: conjur
           authn_id: authn-jwt/public-github
           host_id: host/data/test-github
-          secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password|password
+          secrets: data/vault/RobinB-SafeSecretHub/TestOutOfSync/password|password2
       
       - name: echo secrets
         run: |
