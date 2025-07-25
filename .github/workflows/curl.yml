@@ -25,8 +25,8 @@ jobs:
         id: auth-token
         run: |
           echo "TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq .value)" >> $GITHUB_ENV
-          echo "JWT Token acquired"   
-          echo $TOKEN | sed 's/./& /g'
+          token=$(echo "$TOKEN" | jq -r .value)
+          echo "JWT : $token"
 
 
       - name: Authenticate with API
