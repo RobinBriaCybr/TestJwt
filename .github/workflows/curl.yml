@@ -24,9 +24,10 @@ jobs:
       - name: Get JWT
         id: auth-token
         run: |
-          export TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
+          export RAW_RESPONSE=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
+          TOKEN=$(echo "$RAW_RESPONSE" | jq -r '.value')
           echo "La longueur du token est : ${#TOKEN} caractères"
-          echo "TOKEN=$TOKEN| jq .value" >> $GITHUB_ENV
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
           echo "$TOKEN" > test 
           cat test | sed 's/./& /g'
 
