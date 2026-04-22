@@ -33,7 +33,7 @@ jobs:
       - name: Authenticate with API
         id: api-auth
         run: |
-          "La longueur du token est : ${#JWT} caractères"
+          echo "La longueur du token est : ${#TOKEN} caractères"
           curl -vvvk --request POST "https://emeadevops.secretsmgr.cyberark.cloud/api/authn-jwt/rba-public-github/conjur/authenticate" --header "Content-Type: application/x-www-form-urlencoded" --header "Accept-Encoding: base64" --data-urlencode jwt="$TOKEN"
           export SHORT_LIVE_TOKEN=\"$(curl -k --request POST "https://emeadevops.secretsmgr.cyberark.cloud/api/authn-jwt/rba-public-github/conjur/authenticate" --header "Content-Type: application/x-www-form-urlencoded" --header "Accept-Encoding: base64" --data-urlencode jwt="$TOKEN")\"
           echo "Authentication request sent."
