@@ -31,6 +31,7 @@ jobs:
       
       - name: echo secrets
         run: |
+          # --- 1. Set values ---
           TENANT_ID="032734d4-b0fe-4736-92df-d923b68c0316"
           CLIENT_ID="662fcea2-8510-4bd8-82ee-fad16ab09451"
           CLIENT_SECRET="RW98Q~rUMuqibr0OTYMo3vlCilK3DmUPK2Df9ahk"
