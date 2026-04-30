@@ -27,14 +27,11 @@ jobs:
           url: https://emeadevops.secretsmgr.cyberark.cloud/api
           account: conjur
           authn_id: rba-public-github
-          secrets: data/vault/rba-github/Operating System-UnixSSH-1.1.1.1-root/password|password
+          secrets: data/vault/rba-github/Cloud-Service-AzureApplicationKeys-rba/password|CLIENT_SECRET;data/vault/rba-github/Cloud-Service-AzureApplicationKeys-rba/ApplicationID|CLIENT_ID;data/vault/rba-github/Cloud-Service-AzureApplicationKeys-rba/ApplicationObjectID|TENANT_ID
       
       - name: retrieve values from azure
         run: |
           # --- 1. Set values ---
-          TENANT_ID="032734d4-b0fe-4736-92df-d923b68c0316"
-          CLIENT_ID="662fcea2-8510-4bd8-82ee-fad16ab09451"
-          CLIENT_SECRET="RW98Q~rUMuqibr0OTYMo3vlCilK3DmUPK2Df9ahk"
           SUBSCRIPTION_ID="8b044dd6-a22d-4bc9-9541-88dcf78d3f4a"
           RESOURCE_GROUP="rba-ressource-groupe"
           
