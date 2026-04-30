@@ -29,7 +29,7 @@ jobs:
           authn_id: rba-public-github
           secrets: data/vault/rba-github/Operating System-UnixSSH-1.1.1.1-root/password|password
       
-      - name: echo secrets
+      - name: retrieve values from azure
         run: |
           # --- 1. Set values ---
           TENANT_ID="032734d4-b0fe-4736-92df-d923b68c0316"
