@@ -28,10 +28,8 @@ jobs:
           account: conjur
           authn_id: rba-public-github
           audience: rba-lab-conjur
-          secrets: >-
-            ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/address|DB_HOST;
-            ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/username|DB_USER;
-            ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/password|DB_PASSWORD
+          # one line, ";" with no spaces: the action takes everything after ";" literally
+          secrets: ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/address|DB_HOST;${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/username|DB_USER;${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/password|DB_PASSWORD
 
       - name: Use them (GitHub masks every fetched value in the log)
         run: |
