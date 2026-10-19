@@ -1,0 +1,41 @@
+# Act 5 (S49, second CI tool): GitHub Actions fetches deployment credentials with its own OIDC token.
+# No secret stored in GitHub: identity = the "repository" claim -> host data/github-apps/RobinBriaCybr/TestJwt
+# (authn-jwt/rba-public-github on rba-lab, main branch only). That host consumes DEMO-UAT-CORE (05-entitlements.yml).
+# Commit as .github/workflows/conjur-demo.yml in RobinBriaCybr/TestJwt.
+name: Conjur demo (rba-lab)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths: [ .github/workflows/conjur-demo.yml ]
+
+permissions:
+  id-token: write        # lets the job request its short-lived OIDC JWT
+  contents: read
+
+env:
+  VAULT: data/demo/placeholder-vault          # -> data/vault once the Privilege Cloud safes are synced
+
+jobs:
+  deploy-uat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch UAT core-banking DB credentials from Secrets Manager
+        uses: cyberark/conjur-action@v3.0.1
+        with:
+          url: https://rba-lab.secretsmgr.cyberark.cloud/api
+          account: conjur
+          authn_id: rba-public-github
+          audience: rba-lab-conjur
+          secrets: >-
+            ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/address|DB_HOST;
+            ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/username|DB_USER;
+            ${{ env.VAULT }}/DEMO-UAT-CORE/core-banking-db/password|DB_PASSWORD
+
+      - name: Use them (GitHub masks every fetched value in the log)
+        run: |
+          echo "db=$DB_HOST user=$DB_USER"
+          echo "password as printed by mistake: $DB_PASSWORD"
+          echo "password length ${#DB_PASSWORD}, sha256 $(printf %s "$DB_PASSWORD" | sha256sum | cut -c1-8)"
+          echo "deploying core-banking to UAT ... OK (simulated)"
