@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  VAULT: data/demo/placeholder-vault          # -> data/vault once the Privilege Cloud safes are synced
+  VAULT: data/demo/vault
 
 jobs:
   deploy-uat:
