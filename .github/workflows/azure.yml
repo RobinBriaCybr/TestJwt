@@ -22,12 +22,14 @@ jobs:
 
 
       - name: Import Secrets using CyberArk Conjur Secret Fetcher
-        uses: cyberark/conjur-action@v2.0.6
+        uses: cyberark/conjur-action@v3.0.1
         with:
-          url: https://emeadevops.secretsmgr.cyberark.cloud/api
+          url: https://rba-lab.secretsmgr.cyberark.cloud/api
           account: conjur
           authn_id: rba-public-github
-          secrets: data/vault/rba-github/Cloud-Service-AzureApplicationKeys-rba/password|CLIENT_SECRET;data/vault/rba-github/Cloud-Service-AzureApplicationKeys-rba/ApplicationID|CLIENT_ID;data/vault/rba-github/Cloud-Service-AzureApplicationKeys-rba/ApplicationObjectID|TENANT_ID
+          audience: rba-lab-conjur
+          # one line, ";" with no spaces around it: the action takes everything after ";" literally
+          secrets: data/vault/azure-service-principal/Cloud Service-AzureApplicationKeys-portal.azure.com-RBA-demo/password|CLIENT_SECRET;data/vault/azure-service-principal/Cloud Service-AzureApplicationKeys-portal.azure.com-RBA-demo/ApplicationID|CLIENT_ID;data/vault/azure-service-principal/Cloud Service-AzureApplicationKeys-portal.azure.com-RBA-demo/ActiveDirectoryID|TENANT_ID
       
       - name: retrieve values from azure
         run: |
